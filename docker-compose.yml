@@ -1,17 +1,17 @@
 services:
   server:
     build:
-      context: .
-      dockerfile: ./server/Dockerfile
+      context: ./server
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./server/:/usr/src/app/
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     env_file:
       - ./server/.env.dev
+    depends_on:
+      - db
 
   # client:
   #   build:
@@ -30,9 +30,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=hello_django
-      - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hello_django_dev
+      - POSTGRES_USER=lemio
+      - POSTGRES_PASSWORD=lemio
+      - POSTGRES_DB=lemio_dev
 
 volumes:
   postgres_data:
