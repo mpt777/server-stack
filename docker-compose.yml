@@ -1,0 +1,38 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server/:/usr/src/app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./server/.env.dev
+
+  # client:
+  #   build:
+  #     context: .
+  #     dockerfile: ./client/Dockerfile
+  #   command: npm run dev
+  #   volumes:
+  #     - ./client:/app
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     - django
+
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+
+volumes:
+  postgres_data:
