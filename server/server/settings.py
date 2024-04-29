@@ -76,7 +76,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'server.wsgi.application'
 
-
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@domain.com")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "password")
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
