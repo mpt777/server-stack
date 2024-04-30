@@ -30,7 +30,9 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,8 +57,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server.urls'
-
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 
 TEMPLATES = [
     {

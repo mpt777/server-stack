@@ -1,2 +1,3 @@
 /server/.env.prod
 /server/.env.prod.db
+/server/.env.prod*
