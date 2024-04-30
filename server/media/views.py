@@ -30,6 +30,7 @@ def serve_protected_document(request, file):
 
     return response
 
+
 def image_upload(request):
     if request.method == "POST" and request.FILES["image_file"]:
         image_file = request.FILES["image_file"]
