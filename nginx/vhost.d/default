@@ -1,15 +1,15 @@
-location /static/ {
+location /static {
     alias /home/app/web/staticfiles/;
     add_header Access-Control-Allow-Origin *;
 }
 
-location /media/private/ {
+location /media/private {
     internal;
     alias /home/app/web/mediafiles/private/;
     add_header Access-Control-Allow-Origin *;
 }
 
-location /media/public/ {
+location /media/public {
     alias /home/app/web/mediafiles/public/;
     add_header Access-Control-Allow-Origin *;
 }
