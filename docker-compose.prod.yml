@@ -52,7 +52,7 @@ services:
       - media_volume:/home/app/web/mediafiles
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
-      - backend
+      - server
 
   certbot:
     image: certbot/certbot:latest
