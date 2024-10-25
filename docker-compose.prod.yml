@@ -1,3 +1,4 @@
+version: '2'
 services:
   server:
     build:
@@ -24,7 +25,7 @@ services:
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
-      NPM_CONFIG_UNSAFE_PERM: true
+      NPM_CONFIG_UNSAFE_PERM: True
     ports:
       - 8080:8080
       # - 9228:9228
