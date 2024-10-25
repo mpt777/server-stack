@@ -1,3 +1,6 @@
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
 docker compose down -v
 
 docker compose -f docker-compose.prod.yml up -d --build
