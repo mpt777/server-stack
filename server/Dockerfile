@@ -9,8 +9,8 @@ ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
 # RUN apt-get update --fix-missing
-# RUN apt-get update --fix-missing && apt-get install -y netcat-traditional
-RUN apt-get update --fix-missing && apt-get install
+RUN apt-get update --fix-missing && apt-get install -y netcat-traditional
+# RUN apt-get update --fix-missing && apt-get install
 
 
 # install dependencies
