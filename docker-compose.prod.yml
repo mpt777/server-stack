@@ -3,7 +3,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.prod
-    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --config ./server/gunicorn_config.py server.wsgi:application 
+    #gunicorn server.wsgi:application --bind 0.0.0.0:8000
     env_file:
       - ./server/.env.prod
     volumes:
