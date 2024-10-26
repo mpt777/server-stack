@@ -58,7 +58,7 @@ services:
     depends_on:
       - server
   acme-companion:
-    image: nginxproxy/acme-companion
+    image: nginxproxy/acme-companion:latest
     env_file:
       - ./server/.env.prod.proxy-companion
     volumes:
