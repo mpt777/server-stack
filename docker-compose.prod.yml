@@ -60,7 +60,7 @@ services:
       - server
 
   acme-companion:
-    image: nginxproxy/acme-companion:2.2.8
+    image: nginxproxy/acme-companion
     env_file:
       - ./server/.env.prod.proxy-companion
     volumes:
