@@ -6,9 +6,9 @@ server {
     listen 80;
     server_name calyps.io;
 
-    location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
-    }
+    # location /.well-known/acme-challenge/ {
+    #     root /var/www/certbot;
+    # }
 
     location /static/ {
         alias /home/app/web/staticfiles/;
@@ -35,7 +35,7 @@ server {
     }
 
     # Redirect all other HTTP requests to HTTPS
-    # return 301 https://$host$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 # Uncomment this block to enable SSL on port 443

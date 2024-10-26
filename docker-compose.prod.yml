@@ -3,14 +3,14 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.prod
-    command: gunicorn --config ./server/gunicorn_config.py server.wsgi:application 
-    #gunicorn server.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
+    # command: gunicorn --config ./server/gunicorn_config.py server.wsgi:application 
+      
     env_file:
       - ./server/.env.prod
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - /var/certbot/conf:/etc/letsencrypt/:ro
     expose:
       - 8000
     depends_on:
@@ -43,14 +43,15 @@ services:
 
   nginx:
     image: nginx:alpine
-    restart: unless-stopped
+    build:
+      context: ./nginx
     ports:
+      # - 1337:80
       - "80:80"
       - "443:443"
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
       - server
 
