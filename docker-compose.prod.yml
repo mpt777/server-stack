@@ -60,18 +60,18 @@ services:
     depends_on:
       - server
       - client
-  # acme-companion:
-  #   image: nginxproxy/acme-companion
-  #   env_file:
-  #     - ./server/.env.prod.proxy-companion
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - certs:/etc/nginx/certs
-  #     - html:/usr/share/nginx/html
-  #     - vhost:/etc/nginx/vhost.d
-  #     - acme:/etc/acme.sh
-  #   depends_on:
-  #     - nginx-proxy
+  acme-companion:
+    image: nginxproxy/acme-companion
+    env_file:
+      - ./server/.env.prod.proxy-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
 
 volumes:
   postgres_data:
