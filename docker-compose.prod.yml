@@ -52,16 +52,15 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-    depends_on:
-      - server
-
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www/:/var/www/certbot/:ro
+    
   certbot:
     image: certbot/certbot:latest
     volumes:
-      - /var/certbot/conf:/etc/letsencrypt/:rw
-      - /var/certbot/www/:/var/www/certbot/:rw
-    depends_on:
-      - nginx
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
 
   # nginx-proxy:
   #   container_name: nginx-proxy
