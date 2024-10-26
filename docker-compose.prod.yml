@@ -22,7 +22,7 @@ services:
     volumes:
       # - .:/usr/src/app
       # - /usr/src/app/node_modules
-      - ./client/node_modules:/usr/src/app/node_modules
+      # - ./client/node_modules:/usr/src/app/node_modules
       - ./client:/usr/src/app
     build:
       context: ./client
