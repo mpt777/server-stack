@@ -20,7 +20,9 @@ services:
   client:
     image: client
     volumes:
-      - /client/node_modules
+      # - .:/usr/src/app
+      # - /usr/src/app/node_modules
+      - ./client/usr/src/app/node_modules
       - ./client:/usr/src/app
     build:
       context: ./client
