@@ -23,6 +23,7 @@ services:
       # - .:/usr/src/app
       # - /usr/src/app/node_modules
       # - ./client/node_modules:/usr/src/app/node_modules
+      - exclude:/usr/src/app/node_modules/
       - ./client:/usr/src/app
     build:
       context: ./client
@@ -83,3 +84,4 @@ volumes:
   html:
   vhost:
   acme:
+  exclude:
