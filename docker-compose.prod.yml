@@ -45,9 +45,10 @@ services:
     build: ./nginx
     restart: always
     ports:
+      # - 80:80
       - 443:443
-      # - 1337:80
-      - 80:80
+      - 1337:80
+      
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
@@ -57,6 +58,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - server
+
   acme-companion:
     image: nginxproxy/acme-companion:2.2.8
     env_file:
