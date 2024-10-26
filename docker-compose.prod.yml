@@ -10,8 +10,10 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-    expose:
-      - 8000
+    # expose:
+    #   - 8000
+    ports:
+      - 8000:8000
     depends_on:
       - db
 
@@ -23,13 +25,12 @@ services:
     build:
       context: ./client
       dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: production
-      NPM_CONFIG_UNSAFE_PERM: true
-    ports:
-      - 8080:8080
-      # - 9228:9228
-    # command: node --experimental-loader=@vavite/node-loader
+    env_file:
+      - ./client/.env.prod
+    # ports:
+    #   - 3000:3000
+    expose:
+      - 3000
     depends_on:
       - server
       
@@ -58,19 +59,19 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - server
-
-  acme-companion:
-    image: nginxproxy/acme-companion
-    env_file:
-      - ./server/.env.prod.proxy-companion
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - html:/usr/share/nginx/html
-      - vhost:/etc/nginx/vhost.d
-      - acme:/etc/acme.sh
-    depends_on:
-      - nginx-proxy
+      - client
+  # acme-companion:
+  #   image: nginxproxy/acme-companion
+  #   env_file:
+  #     - ./server/.env.prod.proxy-companion
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - certs:/etc/nginx/certs
+  #     - html:/usr/share/nginx/html
+  #     - vhost:/etc/nginx/vhost.d
+  #     - acme:/etc/acme.sh
+  #   depends_on:
+  #     - nginx-proxy
 
 volumes:
   postgres_data:
