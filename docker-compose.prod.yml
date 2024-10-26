@@ -5,7 +5,6 @@ services:
       dockerfile: Dockerfile.prod
     command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
     # command: gunicorn --config ./server/gunicorn_config.py server.wsgi:application 
-      
     env_file:
       - ./server/.env.prod
     volumes:
@@ -41,61 +40,41 @@ services:
     env_file:
       - ./server/.env.prod.db
 
-  nginx:
-    image: nginx:alpine
-    build:
-      context: ./nginx
+  nginx-proxy:
+    container_name: nginx-proxy
+    build: ./nginx
+    restart: always
     ports:
-      # - 1337:80
-      - "80:80"
-      - "443:443"
+      - 443:443
+      - 1337:80
+      # - 80:80
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - ./nginx:/etc/nginx/conf.d/:ro
-      - ./certbot/www/:/var/www/certbot/:ro
-    
-  certbot:
-    image: certbot/certbot:latest
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - server
+  acme-companion:
+    image: nginxproxy/acme-companion
+    env_file:
+      - ./server/.env.prod.proxy-companion
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-
-
-  # nginx-proxy:
-  #   container_name: nginx-proxy
-  #   build: ./nginx
-  #   restart: always
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   volumes:
-  #     - static_volume:/home/app/web/staticfiles
-  #     - media_volume:/home/app/web/mediafiles
-  #     - certs:/etc/nginx/certs
-  #     - html:/usr/share/nginx/html
-  #     - vhost:/etc/nginx/vhost.d
-  #     - /var/run/docker.sock:/tmp/docker.sock:ro
-  #   depends_on:
-  #     - server
-  # acme-companion:
-  #   image: nginxproxy/acme-companion:latest
-  #   env_file:
-  #     - ./server/.env.prod.proxy-companion
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - certs:/etc/nginx/certs
-  #     - html:/usr/share/nginx/html
-  #     - vhost:/etc/nginx/vhost.d
-  #     - acme:/etc/acme.sh
-  #   depends_on:
-  #     - nginx-proxy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
-  # certs:
-  # html:
-  # vhost:
-  # acme:
+  certs:
+  html:
+  vhost:
+  acme:
