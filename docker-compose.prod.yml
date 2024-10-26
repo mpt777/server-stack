@@ -46,13 +46,13 @@ services:
     build:
       context: ./nginx
     ports:
-      # - 1337:80
-      - "80:80"
+      - 1337:80
+      # - "80:80"
       - "443:443"
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx:/etc/nginx/conf.d/:ro
       - ./certbot/www/:/var/www/certbot/:ro
     
   certbot:
