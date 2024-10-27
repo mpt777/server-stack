@@ -1,8 +1,7 @@
 <script>
+     // Finally, your application's global stylesheet (sometimes labeled 'app.css')
     import "../app.css"
-
-    // Finally, your application's global stylesheet (sometimes labeled 'app.css')
-    // import "$static/fonts/remix/remixicon.css"
+    import "$static/fonts/remix/remixicon.css"
 
 	import { initializeStores } from '@skeletonlabs/skeleton';
 

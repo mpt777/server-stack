@@ -4,6 +4,8 @@ import type { Config } from 'tailwindcss';
 
 // 1. Import the Skeleton plugin
 import { skeleton } from '@skeletonlabs/tw-plugin';
+import { outrunTheme } from './static/theme/outrun';
+import forms from '@tailwindcss/forms';
 
 const config = {
 	// 2. Opt for dark mode to be handled via the class method
@@ -20,9 +22,12 @@ const config = {
 		extend: {},
 	},
   plugins: [
-    skeleton({
-      themes: { preset: [ "seafoam" ] }
-    })
+		forms,
+		skeleton({
+			themes: {
+				custom: [outrunTheme]
+			}
+		})
   ]
 } satisfies Config;
 

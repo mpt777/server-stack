@@ -15,8 +15,8 @@
     <nav class="list-nav">
         <ul class="">
             <li><NavLink title="Home" href="/"/></li>
-            <li><NavLink title="Explore" href="/explore"/></li>
-            <li><NavLink title="Recipes" href="/recipes"/></li>
+            <li><NavLink title="Games" href="/games"/></li>
+            <li><NavLink title="Projects" href="/projects"/></li>
             <li><NavLink title="About" href="/about"/></li>
         </ul>
     </nav>
@@ -30,8 +30,8 @@
             </li>
             </form>
         {:else}
-            <li><NavLink title="Login" href="/auth/login?redirectTo={$page.url.pathname}"/></li>
-            <li><NavLink title="Signup" href="/auth/signup?redirectTo={$page.url.pathname}"/></li>
+            <!-- <li><NavLink title="Login" href="/auth/login?redirectTo={$page.url.pathname}"/></li> -->
+            <!-- <li><NavLink title="Signup" href="/auth/signup?redirectTo={$page.url.pathname}"/></li> -->
         {/if}
         </ul>
     </nav>

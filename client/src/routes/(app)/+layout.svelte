@@ -36,55 +36,38 @@
 <!-- <ToastMessage /> -->
 {/if }
 
+<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+	<!-- Header -->
+	<header class="bg-surface-100-800-token p-4 shadow-md">
+		<div class="flex justify-between">
+		  <div>Calyps.io</div>
 
-<AppShell slotSidebarLeft="w-0 md:w-52 bg-surface-500/10">
-	<svelte:fragment slot="header">
-		<AppBar padding="py-2 px-4">
-			<svelte:fragment slot="lead">
-				<button class="md:hidden btn btn-sm-mr-4" on:click={drawerOpen}>
-					<i class="ri-menu-line"></i>
-				</button>
-				Calyps.io Recipes
-			</svelte:fragment>
-			
-			
-			<svelte:fragment slot="trail">
-				<form method="GET" action="/explore">
-					<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-						<button><i class="ri-search-line"></i></button>
-						<!-- <Input placeholder="Search..." name="search" baseClass=""/> -->
-					</div>
-				</form>
-				<LightSwitch/>
-				
-				{#if $page.data.user}
-				<Avatar
-					initials={$page.data.user.username.charAt(0)}
-					border="border-4 border-surface-300-600-token hover:!border-primary-500"
-					cursor="cursor-pointer"
-					width="w-12"
-				/>
-				{/if}
-			</svelte:fragment>
-			
-		</AppBar>
-	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">
-	    <Navigation />
-	</svelte:fragment>
-
-	<div>
-		{#if breadcrumbs.length}
-		<div class="bg-glass-300-600-token p-2 m-2 token rounded-token">
-			<!-- <Breadcrumb breadcrumbs={breadcrumbs}/> -->
+		  <div><LightSwitch/></div>
 		</div>
-		{/if}
-		<slot>
+	</header>
+	<!-- Grid Columns -->
+	<div class="grid grid-cols-1 md:grid-cols-[auto_1fr]">
+	  <!-- Left Sidebar. -->
+	  <aside class="p-1 bg-surface-500/10">
+      <Navigation/>
+    </aside>
+	  <!-- Main Content -->
+    <div class="flex justify-between flex-col">
+      <main class="space-y-4 p-4">
+        <slot></slot>
+      </main>
+      <footer class="p-4 bg-surface-500/10">
+        <div class="flex justify-between">
+          <div></div>
+          <div class="text-xl">
+            <a href="https://github.com/mpt777">
+              <i class="ri-github-fill"></i>
+            </a>
+          </div>
+        </div>
+	    </footer>
+    </div>
 
-		</slot>
 	</div>
-
-    <svelte:fragment slot="pageFooter">
-		<p>Page Footer!</p>
-	</svelte:fragment>
-</AppShell>
+	
+</div>
