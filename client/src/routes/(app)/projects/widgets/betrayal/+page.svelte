@@ -18,17 +18,17 @@
 			total_list.push(total)
 		}  
 
-		const BiggerElements = (value) => (element) => element >= value;
+		const BiggerElements = (value) => (element) => element > value;
 		const SmallerElements = (value) => (element) => element < value;
 		const SameElements = (value) => (element) => element === value;
 
 		switch (probabilityType) {
 			case "0":
-				result = total_list.filter(BiggerElements(interest)).length / total_list.length;
+				result = 1- total_list.filter(SmallerElements(interest)).length / total_list.length;
 				break;
 			
 			case "1":
-				result = 1 - (total_list.filter(SmallerElements(interest)).length / total_list.length);
+				result = (total_list.filter(BiggerElements(interest)).length / total_list.length);
 				break;
 			
 			case "2":
@@ -40,7 +40,7 @@
 				break;
 			
 			case "4":
-				result = total_list.filter((element) => element <= interest).length / total_list.length;
+				result = 1 - (total_list.filter(BiggerElements(interest)).length / total_list.length);
 				break;
 			
 			default:
@@ -64,24 +64,24 @@
 
 			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 				<div class="input-group-shim">Dice Rolled</div>
-				<input type="number" min=0 value="{diceCount}"/>
+				<input type="number" class="input--min-w-4" min=0 value="{diceCount}"/>
 
 				<div class="input-group-shim !p-0">
 					<div class="flex !p-0 h-full">
-						<button class="h-full variant-filled-error" on:click={() => diceCount = Math.max(diceCount-1, 0)}>-</button>
-						<button class="h-full variant-filled-success" on:click={() => diceCount++}>+</button>
+						<button class="h-full variant-filled-error" onclick={() => diceCount = Math.max(diceCount-1, 0)}>-</button>
+						<button class="h-full variant-filled-success" onclick={() => diceCount++}>+</button>
 					</div>
 				</div>
 			</div>
 
 			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 				<div class="input-group-shim">Value of Interest</div>
-				<input type="number" min=0 value="{interest}"/>
+				<input type="number" class="input--min-w-4" min=0 value="{interest}"/>
 
 				<div class="input-group-shim !p-0">
 					<div class="flex !p-0 h-full">
-						<button class="h-full variant-filled-error" on:click={() => interest = Math.max(interest-1, 0)}>-</button>
-						<button class="h-full variant-filled-success" on:click={() => interest++}>+</button>
+						<button class="h-full variant-filled-error" onclick={() => interest = Math.max(interest-1, 0)}>-</button>
+						<button class="h-full variant-filled-success" onclick={() => interest++}>+</button>
 					</div>
 				</div>
 			</div>
@@ -100,7 +100,7 @@
 			</div>
 
 			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<button class="variant-filled-tertiary btn-lg" on:click={calculate}>
+				<button class="variant-filled-tertiary btn-lg" onclick={calculate}>
 					Result
 				</button>
 				<button>{result.toFixed(4)}</button>
@@ -108,6 +108,6 @@
 
 		</section>
 		<hr>
-		<footer class="card-footer p-4"><a href="/projects" class="anchor">Return</a></footer>
+		<footer class="card-footer p-4 "><a href="/projects" class="anchor">Return</a></footer>
 	</div>
 </div>

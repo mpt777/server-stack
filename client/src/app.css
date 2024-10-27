@@ -10,3 +10,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.input-group input.input--min-w-4 {
+    min-width: 1rem !important;
+}
