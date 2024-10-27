@@ -19,12 +19,13 @@
 </script>
 
 <div class="flex justify-center">
-	<div class="card bg-initial max-w-4xl">
-		<header class="card-header">
+	<div class="card bg-initial max-w-4xl overflow-hidden">
+		<header class="card-header p-4 bg-surface-200-700-token ">
 			<h2 class="h2">
 				Ticket to Ride Calculator
 			</h2>
 		</header>
+		<hr>
 		
 		<section class="p-4">Enter the number of segments based on their length down below..</section>
 		<section class="p-4 space-y-4">
@@ -43,14 +44,14 @@
 			{/each}
 
 			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<button class="variant-filled-tertiary btn-lg" onclick={calculate}>
-					Result
+				<button class="variant-glass-secondary backdrop-filter-none btn-lg border-r border-secondary-500" onclick={calculate}>
+					<i class="ri-calculator-line"></i> Results 
 				</button>
 				<button>{result}</button>
 			</div>
 
 		</section>
 		<hr>
-		<footer class="card-footer p-4 "><a href="/projects" class="anchor">Return</a></footer>
+		<footer class="card-footer p-4 "><a href="/projects" class="btn variant-ghost"><i class="ri-arrow-left-line"></i> Return</a></footer>
 	</div>
 </div>

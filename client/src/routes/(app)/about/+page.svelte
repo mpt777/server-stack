@@ -1,10 +1,9 @@
 <div class="container mx-auto p-8 space-y-8">
 	<h1 class="h1">About</h1>
-	<br>
 	<div>
 		<div class="h3">Hi! I'm Marshal.</div><br>
 
-		I am a full time software engineer who loves turning ideas into realty<br>
+		I am a full time software engineer who loves turning ideas into realty.<br>
 		My education is in Statistics, Data Science, and Computer Science.<br><br>
 
 		I am currently working on a passion project "Banshee Bash". <br>

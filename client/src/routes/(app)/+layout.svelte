@@ -43,11 +43,11 @@
 	<!-- Header -->
 	<header class="bg-surface-50-900-token p-4 shadow-md z-10">
 		<div class="flex justify-between">
-		  <div>Calyps.io</div>
+		  <div class="h4"><a href="/">Calyps.io</a></div>
 
 		  <div class="flex gap-1">
 				<a class="cursor-pointer" on:click={drawerOpen}>
-					<i class="ri-menu-line" ></i>
+					<i class="text-xl ri-menu-line" ></i>
 				</a>
 				<LightSwitch/>
 			</div>
@@ -68,6 +68,10 @@
         <div class="flex justify-between">
           <div></div>
           <div class="text-xl">
+						<a href="https://www.youtube.com/@mpt777">
+              <i class="ri-youtube-fill"></i>
+            </a>
+
             <a href="https://github.com/mpt777">
               <i class="ri-github-fill"></i>
             </a>
