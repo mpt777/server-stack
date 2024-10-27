@@ -109,6 +109,10 @@
 
 		</section>
 		<hr>
-		<footer class="card-footer p-4 "><a href="/projects" class="btn variant-ghost"><i class="ri-arrow-left-line"></i> Return</a></footer>
+		<footer class="card-footer p-4 flex justify-between">
+			<div>
+			</div>
+				<a href="/projects" class="btn variant-ghost float-right"><i class="ri-arrow-left-line"></i> Return</a>
+		</footer>
 	</div>
 </div>

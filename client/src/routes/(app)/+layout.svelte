@@ -8,9 +8,10 @@
 	import { onMount } from 'svelte';
 	// import Input from '$components/form/Input.svelte';
 
-	import { slide } from 'svelte/transition';
-
 	import { getDrawerStore } from "@skeletonlabs/skeleton";
+	import { popup } from '@skeletonlabs/skeleton';
+
+	// import type { PopupSettings } from '@skeletonlabs/skeleton';
 	// import Breadcrumb from '$components/utils/Breadcrumb.svelte';
 
 	const drawerStore = getDrawerStore();
@@ -21,7 +22,11 @@
 
 	$: breadcrumbs = $page.data.breadcrumbs || [];
 	
-
+	const popupHover = {
+		event: 'hover',
+		target: 'popupHover',
+		placement: 'top'
+	};
 </script>
 
 <svelte:head>
@@ -68,6 +73,16 @@
         <div class="flex justify-between">
           <div></div>
           <div class="text-xl">
+
+						<div class="card text-center p-4 shadow-xl text-sm" data-popup="popupHover">
+							<div><p>View the Legacy <br>Emptytxt.com</p></div>
+							<div class="arrow bg-surface-100-800-token" />
+						</div>
+
+						<a href="https://emptytxt.com" use:popup={popupHover}>
+							<img src="/favicon.ico" class="inline w-4 pb-1" alt="emptytx logo">
+            </a>
+
 						<a href="https://www.youtube.com/@mpt777">
               <i class="ri-youtube-fill"></i>
             </a>

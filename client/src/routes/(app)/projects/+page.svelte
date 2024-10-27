@@ -1,6 +1,6 @@
 <script>
 	let data = [
-		{url:"projects/widgets/betrayal", title:"Betrayal Probability", description:`Interested in the probability of a roll?<br><br>
+		{url:"projects/widgets/betrayal", title:"Betrayal Probability", description:`Not feeling lucky?<br><br>
 			Input the number of dice you are rolling as well as the total number that you are hoping to achieve.<br><br>
 			Then select how you want that probability to be calculated. You might want to rethink your risky roll`},
 		{url:"projects/widgets/ticket", title:"Ticket to Ride", description:`Do you hate calculating your score in Ticket to Ride?<br><br>
