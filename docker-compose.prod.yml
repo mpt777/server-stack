@@ -21,7 +21,7 @@ services:
     image: client
     volumes:
       - ./client:/usr/src/app
-      - /dev/null:/client/node_modules
+      - /dev/null:/usr/src/app/node_modules
       # - /usr/src/app/node_modules
     build:
       context: ./client
