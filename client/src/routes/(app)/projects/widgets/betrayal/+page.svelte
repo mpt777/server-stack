@@ -1,35 +1,11 @@
 <script>
-	function BiggerElements(val)
-		{
-			return function(evalue, index, array)
-			{
-			return (evalue >= val);
-			};
-		}
-
-	function SmallerElements(val)
-		{
-			return function(evalue, index, array)
-			{
-			return (evalue <= val);
-			};
-		}
-	
-	function SameElements(val)
-		{
-			return function(evalue, index, array)
-			{
-			return (evalue == val);
-			};
-		}
-
 	let diceCount = $state(0);
 	let interest = $state(0);
 	let result = $state(0.0);
 
 	let probabilityType = $state('2');
 
-	const simulations = 10000;
+	const simulations = 50000;
 
 	function calculate() {
 		let total_list = []
@@ -42,33 +18,36 @@
 			total_list.push(total)
 		}  
 
-		/*gte than or equal to*/
-		if (probabilityType == "0") {
-			result = total_list.filter(BiggerElements(interest)).length / total_list.length 
-		}
+		const BiggerElements = (value) => (element) => element >= value;
+		const SmallerElements = (value) => (element) => element < value;
+		const SameElements = (value) => (element) => element === value;
 
-		/* greater than */
-			if (probabilityType == "1") {
-			result = 1 - ( total_list.filter(SmallerElements(interest)).length / total_list.length ) 
-		}
-
-		/*exact role */
-		if (probabilityType == "2") {
-			result = total_list.filter(SameElements(interest)).length / total_list.length 
-		}
-
-		/*less than role */
-		if (probabilityType == "3") {
-			result = 1 - ( total_list.filter(BiggerElements(interest)).length / total_list.length )
-		}
-
-		/*less than or equal to*/
-		if (probabilityType == "4") {
-			result = total_list.filter(SmallerElements(interest)).length / total_list.length 
-		}
-
-		
+		switch (probabilityType) {
+			case "0":
+				result = total_list.filter(BiggerElements(interest)).length / total_list.length;
+				break;
 			
+			case "1":
+				result = 1 - (total_list.filter(SmallerElements(interest)).length / total_list.length);
+				break;
+			
+			case "2":
+				result = total_list.filter(SameElements(interest)).length / total_list.length;
+				break;
+			
+			case "3":
+				result = total_list.filter(SmallerElements(interest)).length / total_list.length;
+				break;
+			
+			case "4":
+				result = total_list.filter((element) => element <= interest).length / total_list.length;
+				break;
+			
+			default:
+				console.error("Invalid probability type");
+				return;
+		}
+
 	}
 
 </script>
@@ -110,7 +89,7 @@
 			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 				<div class="input-group-shim">Probability</div>
 
-				<select class="select" bind:value={probabilityType}>
+				<select class="select rounded-none" bind:value={probabilityType}>
 					<option value="0">Greater Than or Equal</option>
 					<option value="1">Greater Than</option>
 					<option value="2">Equal</option>
@@ -120,11 +99,11 @@
 
 			</div>
 
-			<div class="btn-group">
-				<button class="variant-filled-tertiary" on:click={calculate}>
+			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+				<button class="variant-filled-tertiary btn-lg" on:click={calculate}>
 					Result
 				</button>
-				<input type="number" min=0 value="{result.toFixed(2)}" disabled/>
+				<button>{result.toFixed(4)}</button>
 			</div>
 
 		</section>
