@@ -6,7 +6,7 @@ RUN npm install
 
 COPY . .
 
-# RUN npm run build
+RUN npm run build
 CMD ["npm", "run", "dev"]
 
 # FROM node:20-alpine3.17
