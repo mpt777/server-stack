@@ -8,5 +8,10 @@ docker compose -f docker-compose.prod.yml exec server python manage.py migrate -
 docker compose -f docker-compose.prod.yml exec server python manage.py collectstatic --no-input --clear
 
 
+
+docker compose -f docker-compose.prod.yml exec acme-companion /app/force_renew
+
+docker compose -f docker-compose.prod.yml logs
+
 https://testdriven.io/blog/django-lets-encrypt/
 
