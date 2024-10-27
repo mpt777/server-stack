@@ -1,9 +1,19 @@
 <div class="container mx-auto p-8 space-y-8">
-	<h1 class="h1">Sup</h1>
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-	<section>
-		<a class="btn variant-filled-primary" href="https://kit.svelte.dev/">SvelteKit</a>
-		<a class="btn variant-filled-secondary" href="https://tailwindcss.com/">Tailwind</a>
-		<a class="btn variant-filled-tertiary" href="https://github.com/">GitHub</a>
-	</section>
+	<h1 class="h1">About</h1>
+	<br>
+	<div>
+		<div class="h3">Hi! I'm Marshal.</div><br>
+
+		I am a full time software engineer who loves turning ideas into realty<br>
+		My education is in Statistics, Data Science, and Computer Science.<br><br>
+
+		I am currently working on a passion project "Banshee Bash". <br>
+		Banshee Bash is a party local multiplayer game coming to PC in 2025.<br><br>
+
+		Outside of my work, I love filmaking and the great outdoors.<br><br>
+
+		Thank you for visiting Calyps.io
+
+
+	</div>
 </div>

@@ -22,13 +22,14 @@
     </nav>
     <nav class="list-nav">
         <ul>
-        {#if $page.data.user}                
+        {#if $page.data.user}
             <li><NavLink href="/profile">My Profile</NavLink></li>
             <form method="POST" action="/auth/logout">
             <li>
                 <button class="w-full" on:click={drawerClose}>Logout</button>
             </li>
             </form>
+        
         {:else}
             <!-- <li><NavLink title="Login" href="/auth/login?redirectTo={$page.url.pathname}"/></li> -->
             <!-- <li><NavLink title="Signup" href="/auth/signup?redirectTo={$page.url.pathname}"/></li> -->
