@@ -3,6 +3,12 @@
 @import "tailwindcss/utilities";
 @import '/fonts/remix/remixicon.css?url';
 
+@layer components {
+    .calyps--card {
+        @apply overflow-hidden bg-white/10 dark:bg-black/10 shadow-md border-surface-500/30 border card max-w-4xl overflow-hidden;      
+    }
+}
+
 [data-theme] {
     background-image: radial-gradient(at 0% 100%, rgba(var(--color-secondary-500) / .33) 0px, transparent 50%), radial-gradient(at 98% 100%, rgba(var(--color-tertiary-500) / .33) 0px, transparent 50%);
     background-attachment: fixed;

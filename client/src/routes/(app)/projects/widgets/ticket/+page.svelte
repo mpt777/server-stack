@@ -19,7 +19,7 @@
 </script>
 
 <div class="flex justify-center">
-	<div class="card bg-initial max-w-4xl overflow-hidden">
+	<div class="calyps--card">
 		<header class="card-header p-4 bg-surface-200-700-token ">
 			<h2 class="h2">
 				Ticket to Ride Calculator
