@@ -3,7 +3,7 @@
 	<a href="https://store.steampowered.com/app/3395730/Banshee_Bash/" target="_blank"
 		class="card variant-filled card-hover overflow-hidden">
 		
-		<img src="/images/header.jpg" class="w-full" alt="Banshee Bash Header">
+		<img src="/images/capsule_header.jpg" class="w-full" alt="Banshee Bash Header">
 		<section class="p-4">
 			<div>Banshee Bash is a local-multiplayer party game. </div>
 			<div>Fight with up to 3 friends (or add bots) to battle as a team, or in an epic free-for-all. </div>

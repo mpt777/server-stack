@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.index),
     path("files/", include('media.urls')),
     path("admin/", admin.site.urls),
+    path('api/', include('social.api')),
 ]
 
 if bool(settings.DEBUG):
