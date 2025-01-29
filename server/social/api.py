@@ -65,7 +65,7 @@ router = routers.DefaultRouter()
 # router.register(r'users', UserViewSet)
 # router.register(r'groups', GroupViewSet)
 
-router.register(r'v1/social/secret_santa', SecretSantaViewset)
+router.register(r'secret_santa', SecretSantaViewset)
 urlpatterns = [
     path('', include(router.urls)),
 ]

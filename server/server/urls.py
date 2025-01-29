@@ -9,7 +9,11 @@ urlpatterns = [
     path("", views.index),
     path("files/", include('media.urls')),
     path("admin/", admin.site.urls),
-    path('api/', include('social.api')),
+    path('api/v1/social/', include('social.api')),
+    path('api/v1/auth/', include('server.api')),
+    # path('api/v1/auth/', include('server.api')),
+
+
 ]
 
 if bool(settings.DEBUG):
