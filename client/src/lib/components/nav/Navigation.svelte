@@ -31,8 +31,8 @@
             </form>
         
         {:else}
-            <!-- <li><NavLink title="Login" href="/auth/login?redirectTo={$page.url.pathname}"/></li> -->
-            <!-- <li><NavLink title="Signup" href="/auth/signup?redirectTo={$page.url.pathname}"/></li> -->
+            <li><NavLink title="Login" href="/login?redirectTo={$page.url.pathname}"/></li>
+            <li><NavLink title="Signup" href="/signup?redirectTo={$page.url.pathname}"/></li>
         {/if}
         </ul>
     </nav>
