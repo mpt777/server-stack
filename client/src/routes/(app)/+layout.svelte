@@ -2,7 +2,7 @@
 	import { AppShell, AppBar, Drawer, Toast, Avatar, Modal} from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import Navigation from '$components/nav/Navigation.svelte';
-	// import ToastMessage from '$components/messages/ToastMessage.svelte';
+	import ToastMessage from '$components/message/MessageToast.svelte';
 	import { browser } from '$app/environment';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
@@ -35,7 +35,7 @@
 <Modal />
 
 {#if browser}
-<!-- <ToastMessage /> -->
+<ToastMessage />
 {/if }
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
@@ -49,6 +49,15 @@
 				<a class="cursor-pointer" on:click={drawerOpen}>
 					<i class="text-xl ri-menu-line" ></i>
 				</a>
+
+				{#if $page.data.user}
+				<Avatar
+					initials={$page.data.user.username?.charAt(0)}
+					border="border-4 border-surface-300-600-token hover:!border-primary-500"
+					cursor="cursor-pointer"
+					width="w-12"
+				/>
+				{/if}
 				
 			</div>
 		</div>

@@ -1,4 +1,6 @@
 <script>
+	import { url } from '$utils/url.js';
+
 	export let data;
 
 	let inputedName = ""
@@ -8,7 +10,6 @@
 		Object.entries(data.pairs_str).map(([k, v]) => [k.toLowerCase(), v])
 	);
 
-	console.log(lookup);
 
 	function findGiftee() {
 		let name = inputedName.toLocaleLowerCase()
@@ -54,7 +55,7 @@
 		<footer class="card-footer p-4 flex justify-between">
 			<div>
 			</div>
-				<a href="/projects" class="btn variant-ghost float-right"><i class="ri-arrow-left-line"></i> Return</a>
+				<a href="{url("projects")}" class="btn variant-ghost float-right"><i class="ri-arrow-left-line"></i> Return</a>
 		</footer>
 	</div>
 </div>

@@ -10,8 +10,28 @@ from .utils import get_tokens_for_user, get_user
 from .serializers import RegistrationSerializer, PasswordChangeSerializer
 from django.urls import include, path, re_path
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+def get_user_from_token(token):
+    try:
+        jwt_authentication = JWTAuthentication()
+        validated_token = jwt_authentication.get_validated_token(token)
+        user = jwt_authentication.get_user(validated_token)
+        return user
+    except Exception as e:
+        # Handle token validation errors
+        return None
 
+class CurrentUser(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user  # DRF automatically assigns the authenticated user
+        if user.is_authenticated:
+            return Response({"username": user.username, "email": user.email}, status=status.HTTP_200_OK)
+        return Response({"error": "User not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+    
 class RegistrationView(APIView):
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
@@ -23,24 +43,26 @@ class RegistrationView(APIView):
       
 class LoginView(APIView):
     def post(self, request):
-        password = request.POST.get('password', "")
-        email = request.POST.get('email', "")
-        username = request.POST.get('username', "")
+        data = request.data  # Correct way to get JSON data
+
+        password = data.get('password', "")
+        email = data.get('email', "")
+        username = data.get('username', "")
         if not password or not (email or username):
-          return Response({'msg': 'Credentials missing'}, status=status.HTTP_400_BAD_REQUEST)
+          return Response({'message': 'Credentials missing'}, status=status.HTTP_400_BAD_REQUEST)
         user = get_user(email=email, username=username, password=password)
 
         if user is not None:
             login(request, user)
             auth_data = get_tokens_for_user(request.user)
-            return Response({'msg': 'Login Success', **auth_data}, status=status.HTTP_200_OK)
-        return Response({'msg': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'message': 'Login Success', "user": {"username": user.username, "email": user.email}, **auth_data}, status=status.HTTP_200_OK)
+        return Response({'message': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
       
 class LogoutView(APIView):
     def post(self, request):
         logout(request)
-        return Response({'msg': 'Successfully Logged out'}, status=status.HTTP_200_OK)
+        return Response({'message': 'Successfully Logged out'}, status=status.HTTP_200_OK)
 
 
       
@@ -57,8 +79,9 @@ class ChangePasswordView(APIView):
 
 urlpatterns = [
   path('register', RegistrationView.as_view(), name='register'),
-  path('login', LoginView.as_view(), name='register'),
-  path('logout', LogoutView.as_view(), name='register'),
-  path('change-password', ChangePasswordView.as_view(), name='register'),
+  path('current', CurrentUser.as_view(), name='current'),
+  path('login', LoginView.as_view(), name='login'),
+  path('logout', LogoutView.as_view(), name='logout'),
+  path('change-password', ChangePasswordView.as_view(), name='change_password'),
   path('token-refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

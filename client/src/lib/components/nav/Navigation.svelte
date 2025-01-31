@@ -1,6 +1,7 @@
 
 <script>
     import { page } from '$app/stores';
+    import { url } from '$utils/url';
 	import { getDrawerStore } from "@skeletonlabs/skeleton";
 
 	const drawerStore = getDrawerStore();
@@ -24,15 +25,15 @@
         <ul>
         {#if $page.data.user}
             <li><NavLink href="/profile">My Profile</NavLink></li>
-            <form method="POST" action="/auth/logout">
+            <form method="POST" action="{url("logout")}">
             <li>
                 <button class="w-full" on:click={drawerClose}>Logout</button>
             </li>
             </form>
         
         {:else}
-            <li><NavLink title="Login" href="/login?redirectTo={$page.url.pathname}"/></li>
-            <li><NavLink title="Signup" href="/signup?redirectTo={$page.url.pathname}"/></li>
+            <li><NavLink title="Login" href="{url("login")}?redirectTo={$page.url.pathname}"/></li>
+            <li><NavLink title="Signup" href="{url("signup")}?redirectTo={$page.url.pathname}"/></li>
         {/if}
         </ul>
     </nav>

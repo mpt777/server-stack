@@ -28,7 +28,13 @@ const config = {
 				custom: [outrunTheme]
 			}
 		})
-  ]
+  ],
+	safelist: [
+		'variant-filled-success',
+		'variant-filled-warning',
+		'select',
+		'textarea'
+	],
 } satisfies Config;
 
 export default config;
