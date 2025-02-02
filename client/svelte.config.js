@@ -20,9 +20,9 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter()
 	},
-	csrf: {
-		checkOrigin: false
-	},
+	// csrf: {
+	// 	checkOrigin: false
+	// },
 	
 };
 
