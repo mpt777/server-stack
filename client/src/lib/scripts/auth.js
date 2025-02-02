@@ -46,7 +46,6 @@ export async function signupUser(event){
 
 
     let responseData = await response.json()
-    console.log(responseData)
 
     if (response.ok){
         setAuthToken(event.cookies, responseData.access)
