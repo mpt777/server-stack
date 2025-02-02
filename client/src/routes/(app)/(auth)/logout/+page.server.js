@@ -1,3 +1,4 @@
+import { logoutUser } from "$scripts/auth";
 import { Message, addMessage } from "$scripts/message";
 import { deleteAuthToken, deleteUser } from "$utils/auth";
 import { json, redirect } from '@sveltejs/kit';
@@ -9,8 +10,7 @@ import { json, redirect } from '@sveltejs/kit';
 
 export const actions = {
     default: async (event) => {
-        deleteAuthToken(event.cookies);
-        deleteUser(event)
+        logoutUser(event)
         addMessage(event.cookies, new Message({message: "Logged out Successfully!"}));
         throw redirect(303, "/")
     }

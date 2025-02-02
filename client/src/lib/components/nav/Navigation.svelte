@@ -28,8 +28,6 @@
                     <button class="w-full text-left px-2">Logout</button>
                 </form>
             </li>
-            
-        
         {:else}
             <li><NavLink title="Login" href="{url("login")}?redirectTo={page.url.pathname}"/></li>
             <li><NavLink title="Signup" href="{url("signup")}?redirectTo={page.url.pathname}"/></li>
