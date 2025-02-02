@@ -32,4 +32,4 @@ COPY package.json .
 
 # RUN node -r dotenv/config
 
-CMD [ "node", "-r dotenv/config build" ]
+CMD ["node", "-r", "dotenv/config", "build"]

@@ -36,7 +36,7 @@
 
 </script>
 {#if type === "textarea"}
-  <textarea
+  <!-- <textarea
   {...inputProperties}
   placeholder={placeholder}
   autocomplete={autocomplete}
@@ -45,7 +45,7 @@
   style="{style}"
   class="{baseClass} {errorClass} {css}"
   bind:value
-  on:input={handleInput} />
+  on:input={handleInput} /></textarea> -->
 {:else if type === "file"}
   <input
   {...inputProperties}
