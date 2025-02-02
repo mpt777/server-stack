@@ -23,6 +23,7 @@ export async function loginUser(event){
         body: JSON.stringify(data)
     });
     
+    console.log(await response.text())
     let responseData = await response.json()
 
     tokenError(event, responseData);
