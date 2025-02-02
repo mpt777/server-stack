@@ -23,7 +23,9 @@ export async function loginUser(event){
         body: JSON.stringify(data)
     });
     
-    return fail(400, {message: await response.text(), level:"error"})
+    let body = await response.text()
+    console.log(body)
+    return fail(400, {message: body, level:"error"})
     console.log(await response.text())
     console.log(response)
     let responseData = await response.json()
