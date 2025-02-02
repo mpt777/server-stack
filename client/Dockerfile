@@ -6,7 +6,7 @@ RUN npm install
 
 COPY . .
 
-RUN node -r dotenv/config
+# RUN node -r dotenv/config
 # RUN npm run build
 # CMD ["npm", "run", "start"]
 CMD ["npm", "run", "dev"]

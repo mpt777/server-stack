@@ -2,12 +2,26 @@ FROM node:22-alpine AS builder
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+RUN npm ci
 RUN npm install
 
 COPY . .
 
 RUN npm run build
-RUN npm prune --production
+# RUN npm prune --production
+
+##########################
+
+FROM node:22-alpine
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/build build/
+COPY --from=builder /usr/src/app/node_modules node_modules/
+COPY package.json .
+
+# RUN node -r dotenv/config
+
+# CMD ["node", "-r", "dotenv/config", "build"]
+CMD ["npm", "run", "dev"]
 
 # RUN node -r dotenv/config
 # RUN npm run build
@@ -21,16 +35,3 @@ RUN npm prune --production
 # COPY . .
 # RUN npm run build
 # RUN npm prune --production
-
-FROM node:22-alpine
-WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/build build/
-# COPY --from=builder /usr/src/app/node_modules node_modules/
-COPY package.json .
-# EXPOSE 3000
-# ENV NODE_ENV=production
-
-# RUN node -r dotenv/config
-
-# CMD ["node", "-r", "dotenv/config", "build"]
-CMD ["npm", "run", "dev"]
