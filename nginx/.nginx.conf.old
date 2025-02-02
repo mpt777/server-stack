@@ -1,5 +1,8 @@
+#upstream calyps {
+#    server server:8000;
+#}
 upstream calyps {
-    server server:8000;
+    server client:3000;
 }
 
 server {
