@@ -26,27 +26,27 @@ export async function loginUser(event){
     let body = await response.text()
     console.log(body)
     return fail(400, {message: body, level:"error"})
-    console.log(await response.text())
-    console.log(response)
-    let responseData = await response.json()
+    // console.log(await response.text())
+    // console.log(response)
+    // let responseData = await response.json()
 
-    tokenError(event, responseData);
+    // tokenError(event, responseData);
 
-    if (response.ok){
-        setAuthToken(event.cookies, responseData.access)
-        setUser(event, responseData.user)
-    }
-    else {
-        console.log("ERROR")
-        return fail(400, {message: responseData?.message || responseData?.messages, errors: responseData?.errors, level:"error"})
-    }
+    // if (response.ok){
+    //     setAuthToken(event.cookies, responseData.access)
+    //     setUser(event, responseData.user)
+    // }
+    // else {
+    //     console.log("ERROR")
+    //     return fail(400, {message: responseData?.message || responseData?.messages, errors: responseData?.errors, level:"error"})
+    // }
 
-    const redirectTo = event.url.searchParams.get("redirectTo") || "/";
-    if (redirectTo) {
-        addMessage(event.cookies, new Message({message: "Success in logging in!"}));
-        throw redirect(302,`/${redirectTo.slice(1)}`)
-    }
-    return {success: true, message: responseData.message, level:"success"};
+    // const redirectTo = event.url.searchParams.get("redirectTo") || "/";
+    // if (redirectTo) {
+    //     addMessage(event.cookies, new Message({message: "Success in logging in!"}));
+    //     throw redirect(302,`/${redirectTo.slice(1)}`)
+    // }
+    // return {success: true, message: responseData.message, level:"success"};
 }
 
 export async function signupUser(event) {
