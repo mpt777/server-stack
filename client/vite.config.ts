@@ -10,6 +10,7 @@ export default defineConfig({
 			'/usr/src/app/static', // Add this line to allow access to the static directory
 			// other allowed directories can stay here if needed
 		  ]
-		}
+		},
+		port:3000
 	}
 });
