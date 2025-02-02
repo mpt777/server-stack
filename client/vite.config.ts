@@ -11,6 +11,5 @@ export default defineConfig({
 			// other allowed directories can stay here if needed
 		  ]
 		},
-		port:3000
 	}
 });
