@@ -25,7 +25,7 @@ services:
       - /usr/src/app/node_modules
     build:
       context: ./client
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.prod
     env_file:
       - ./client/.env.prod
     # ports:
