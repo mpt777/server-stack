@@ -20,8 +20,8 @@ COPY package*.json ./
 
 # RUN node -r dotenv/config
 
-# CMD ["node", "-r", "dotenv/config", "build"]
-CMD ["npm", "run", "dev"]
+CMD ["node", "-r", "dotenv/config", "build"]
+# CMD ["npm", "run", "dev"]
 
 # RUN node -r dotenv/config
 # RUN npm run build
