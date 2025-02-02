@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from rest_framework import status, routers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import  Response
 from rest_framework.views import APIView
 from .utils import get_tokens_for_user, get_user
@@ -33,17 +33,19 @@ class CurrentUser(APIView):
         return Response({"error": "User not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
     
 class RegistrationView(APIView):
+    permission_classes = [AllowAny, ]
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"user": serializer.data, "message": "Registration successful"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "There are errors.", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
       
 class LoginView(APIView):
+    permission_classes = [AllowAny, ]
     def post(self, request):
-        data = request.data  # Correct way to get JSON data
+        data = request.data 
 
         password = data.get('password', "")
         email = data.get('email', "")
@@ -60,6 +62,7 @@ class LoginView(APIView):
 
       
 class LogoutView(APIView):
+    permission_classes = [IsAuthenticated, ]
     def post(self, request):
         logout(request)
         return Response({'message': 'Successfully Logged out'}, status=status.HTTP_200_OK)
@@ -78,7 +81,7 @@ class ChangePasswordView(APIView):
 
 
 urlpatterns = [
-  path('register', RegistrationView.as_view(), name='register'),
+  path('signup', RegistrationView.as_view(), name='signup'),
   path('current', CurrentUser.as_view(), name='current'),
   path('login', LoginView.as_view(), name='login'),
   path('logout', LogoutView.as_view(), name='logout'),

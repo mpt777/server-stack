@@ -30,23 +30,23 @@
 		<section class="p-4">Enter the number of segments based on their length down below..</section>
 		<section class="p-4 space-y-4">
 			{#each trains as train}
-				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-					<div class="input-group-shim">{train.name} Segment</div>
-					<input type="number" class="input--min-w-4" min=0 value={train.count}/>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<div class="input-group-cell preset-tonal-surface">{train.name} Segment</div>
+				<input type="number" class="input--min-w-4" min=0 value={train.count}/>
 
-					<div class="input-group-shim !p-0">
-						<div class="flex !p-0 h-full">
-							<button class="h-full variant-filled-error" onclick={() => train.count = Math.max(train.count-1, 0)}>-</button>
-							<button class="h-full variant-filled-success" onclick={() => train.count++}>+</button>
-						</div>
+				<div class="input-group-shim !p-0">
+					<div class="flex !p-0 h-full">
+						<a class="btn h-full preset-filled-warning-500 rounded-none cursor-pointer" onclick={() => train.count = Math.max(train.count-1, 0)}>-</a>
+						<a class="btn h-full preset-filled-tertiary-500 rounded-none cursor-pointer"  onclick={() => train.count++}>+</a>
 					</div>
 				</div>
+			</div>
 			{/each}
 
-			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<button class="variant-glass-secondary backdrop-filter-none btn-lg border-r border-secondary-500" onclick={calculate}>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<a class="btn btn-lg h-full preset-filled-primary-500 rounded-none cursor-pointer"onclick={calculate}>
 					<i class="ri-calculator-line"></i> Results 
-				</button>
+				</a>
 				<button>{result}</button>
 			</div>
 

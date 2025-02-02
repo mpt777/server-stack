@@ -1,22 +1,26 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { getToastStore } from '@skeletonlabs/skeleton';
+  import { getContext } from 'svelte';
+  import { type ToastContext } from '@skeletonlabs/skeleton-svelte';
 
-	const toastStore = getToastStore();
+  export const toast: ToastContext = getContext('toast');
+	// import { getToastStore } from '@skeletonlabs/skeleton';
+
+	// const toastStore = getToastStore();
 	import type { Message } from '$scripts/message';
+    import { page } from '$app/state';
 
 
 	function createToasts(messages : []) {
 		(messages || [] ).forEach((element : Message) => {
-			// console.log("Trigger")
-			toastStore.trigger({
-				message: element.message,
-				background: element.background,
-				timeout: element.timeout,
-				hoverable: element.hoverable,
-				hideDismiss: element.hideDismiss,
-				classes: element.classes
+			console.log("Trigger")
+
+			toast.create({
+				title: element.title,
+				description: element.message,
+				type: "info",
+				
 			});
+
 		});
 	}
 
@@ -44,13 +48,12 @@
 		}
 
 	// not the best way to handle this. This code runs every time the page is updated, not when the cookie is created
-	$: {
-		$page;
+
+	$effect(() => {
+		page.data;
 		let messages = JSON.parse(getCookie("toastMessages") || "[]");
 		createToasts(messages)
 		setCookie("toastMessages", "", -1000000)
-	}
-
-
+	})
 </script>
 <!-- {JSON.stringify(messages)} -->

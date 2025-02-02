@@ -1,10 +1,9 @@
 <script>
-  export let message = "";
-  export let level = "";
+  let { message, level } = $props();
 </script>
 
 {#if message}
-<div class="alert variant-filled-{level}">
+<div class="p-4 rounded preset-filled-{level}-500">
   {message}
 </div>
 {/if }

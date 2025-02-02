@@ -53,7 +53,7 @@
 </script>
 <div class="flex justify-center">
 	<div class="calyps--card">
-		<header class="card-header p-4 bg-surface-200-700-token ">
+		<header class="card-header p-4 bg-surface-200-700 ">
 			<h2 class="h2">
 				Betrayal Probability Calculator 
 			</h2>
@@ -63,32 +63,32 @@
 		<section class="p-4">Select the number of dice in play, the value of interest, and the type of probability.</section>
 		<section class="p-4 space-y-4">
 
-			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<div class="input-group-shim">Dice Rolled</div>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<div class="input-group-cell preset-tonal-surface">Dice Rolled</div>
 				<input type="number" class="input--min-w-4" min=0 value="{diceCount}"/>
 
 				<div class="input-group-shim !p-0">
 					<div class="flex !p-0 h-full">
-						<button class="h-full variant-filled-error" onclick={() => diceCount = Math.max(diceCount-1, 0)}>-</button>
-						<button class="h-full variant-filled-success" onclick={() => diceCount++}>+</button>
+						<a class="btn h-full preset-filled-warning-500 rounded-none cursor-pointer" onclick={() => diceCount = Math.max(diceCount-1, 0)}>-</a>
+						<a class="btn h-full preset-filled-tertiary-500 rounded-none cursor-pointer" onclick={() => diceCount++}>+</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<div class="input-group-shim">Value of Interest</div>
-				<input type="number" class="input--min-w-4" min=0 value="{interest}"/>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<div class="input-group-cell preset-tonal-surface">Value of Interest</div>
+				<input type="number" class="input--min-w-4 divide-x" min=0 value="{interest}"/>
 
 				<div class="input-group-shim !p-0">
 					<div class="flex !p-0 h-full">
-						<button class="h-full variant-filled-error" onclick={() => interest = Math.max(interest-1, 0)}>-</button>
-						<button class="h-full variant-filled-success" onclick={() => interest++}>+</button>
+						<a class="btn h-full preset-filled-warning-500 rounded-none cursor-pointer" onclick={() => interest = Math.max(interest-1, 0)}>-</a>
+						<a class="btn h-full preset-filled-tertiary-500 rounded-none cursor-pointer" onclick={() => interest++}>+</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<div class="input-group-shim">Probability</div>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<div class="input-group-cell preset-tonal-surface divide-x">Probability</div>
 
 				<select class="select rounded-none" bind:value={probabilityType}>
 					<option value="0">Greater Than or Equal</option>
@@ -100,10 +100,10 @@
 
 			</div>
 
-			<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-				<button class="variant-glass-secondary backdrop-filter-none btn-lg border-r border-secondary-500" onclick={calculate}>
+			<div class="input-group divide-surface-200-800 grid-cols-[auto_1fr_auto] divide-x">
+				<a class="btn btn-lg h-full preset-filled-primary-500 rounded-none cursor-pointer" onclick={calculate}>
 					<i class="ri-calculator-line"></i> Results 
-				</button>
+				</a>
 				<button>{result.toFixed(4)}</button>
 			</div>
 

@@ -1,16 +1,16 @@
 <script lang="ts">
     let { data, form } = $props();
 
-    import { url } from "$utils/url";
     import { enhance } from '$app/forms';
     import Field from '$components/form/Field.svelte';
     import Message from '$components/message/Message.svelte';
+    import { url } from '$utils/url.js';
 
 </script>
 <form method="POST" use:enhance>
-	<div class="flex justify-center">
+	<div class="flex justify-center ">
 		
-		<div class="calyps--card">
+		<div class="calyps--card max-w-sm w-full" >
 			<header class="card-header p-4 bg-surface-200-700-token ">
 				<h2 class="h2">
 					Login
@@ -27,21 +27,20 @@
 
 			</section>
 			<hr>
-			<footer class="card-footer p-4 flex justify-between">
-					<button class="btn variant-filled-primary" type="submit" >Login</button>
-		
-					<div>
-							<a href="/auth/forgot-password" class="btn variant-ghost btn-sm">
-									Forgot Password
-							</a>
-							<a href="/auth/signup" class="btn variant-ghost btn-sm">
-									Sign Up
-							</a>
-					</div>
+			<footer class="card-footer p-4 space-y-4">
+				<div class=" flex justify-center">
+					<button class="btn preset-filled-secondary-500 w-full" type="submit" >Login</button>
+				</div>
+				
+				<div class="flex justify-between">
+						<a href="/auth/forgot-password" class="btn variant-ghost btn-sm">
+								Forgot Password
+						</a>
+						<a href="{url("signup")}" class="btn variant-ghost btn-sm">
+								Sign Up
+						</a>
+				</div>
 
-					{#if form?.success }
-					<p class="error">Success Loging In!.</p>
-					{/if }
 			</footer>
 		</div>
 

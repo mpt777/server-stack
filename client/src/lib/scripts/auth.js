@@ -2,19 +2,17 @@ import { fail, redirect } from "@sveltejs/kit";
 import { setAuthToken, setUser } from "$utils/auth";
 import { addMessage, Message } from "$scripts/message";
 import { papi } from "$utils/api"
+import { toJson } from "$utils/form";
 
 export async function loginUser(event){
-    const data = await event.request.formData();
-
-    let jsonData = {};
-    data.forEach((value, key) => jsonData[key] = value);
+    const data = toJson(await event.request.formData());
 
     const response = await papi(event.fetch, "auth/login", {
         method: "POST",
         headers:{
             "Content-Type":"application/json"
         },
-        body: JSON.stringify(jsonData)
+        body: JSON.stringify(data)
     });
     
     let responseData = await response.json()
@@ -24,10 +22,10 @@ export async function loginUser(event){
         setUser(event, responseData.user)
     }
     else {
-        return fail(400, {message: responseData.message, level:"warning"})
+        return fail(400, {message: responseData?.message, errors: responseData?.errors, level:"error"})
     }
 
-    const redirectTo = event.url.searchParams.get("redirectTo")
+    const redirectTo = event.url.searchParams.get("redirectTo") || "/";
     if (redirectTo) {
         addMessage(event.cookies, new Message({message: "Success in logging in!"}));
         throw redirect(302,`/${redirectTo.slice(1)}`)
@@ -36,30 +34,34 @@ export async function loginUser(event){
 }
 
 export async function signupUser(event){
-    const data = await event.request.formData();
-
-    let jsonData = {};
-    data.forEach((value, key) => jsonData[key] = value);
+    const data = toJson(await event.request.formData());
 
     const response = await papi(event.fetch, "auth/signup", {
         method: "POST",
         headers:{
             "Content-Type":"application/json"
         },
-        body: JSON.stringify(jsonData)
+        body: JSON.stringify(data)
     });
 
 
     let responseData = await response.json()
+    console.log(responseData)
 
     if (response.ok){
-        setAuthToken(event.cookies, responseData.token)
+        setAuthToken(event.cookies, responseData.access)
+        setUser(event, responseData.user)
     }
     else {
-        return fail(400, {"message": responseData.message})
+        return fail(400, {message: responseData?.message, errors: responseData?.errors, level:"error"})
     }
 
-    addMessage(event.cookies, new Message({message: "Signed Up Successfully!"}));
+    const redirectTo = event.url.searchParams.get("redirectTo") || "/";
+    if (redirectTo) {
+        addMessage(event.cookies, new Message({message: "Signed Up Successfully!"}));
+        throw redirect(302,`/${redirectTo.slice(1)}`)
+    }
+
     return {success: true};
 }
 

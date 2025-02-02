@@ -1,27 +1,15 @@
 <script>
   // @ts-nocheck
-  
+    let {value="", placeholder="", label="", name, forName="", autocomplete="", required=false, choices=[], constraints=[], type="text", css="", baseClass=undefined, form=undefined} = $props();
       import Input from "./Input.svelte";
       import Errors from "./Errors.svelte";
   
-      export let value = "";
-      export let placeholder = "";
-      export let label = "";
-      export let name = "";
-      export let forName = "";
-      export let autocomplete = "";
-      export let required = false;
-      export let errors = {};
-      export let choices = [];
-      export let constraints = {}
-      export let type = "text";
-      export let css = "";
-      export let baseClass = undefined;
-      let requiredClass = required ? "required" : ""; 
-  
-      $: hasErrors = errors && errors[name];
-      $: classes = hasErrors ? "with-error" : "";
-  
+    let errors = $derived(form?.errors);
+
+    let requiredClass = required ? "required" : ""; 
+    let hasErrors = errors && errors[name];
+    let classes = hasErrors ? "with-error" : "";
+
   </script>
   
   

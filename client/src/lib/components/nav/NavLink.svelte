@@ -1,19 +1,17 @@
 <script>
-    import { getDrawerStore } from "@skeletonlabs/skeleton";
-
-  const drawerStore = getDrawerStore();
-
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   
-  function drawerClose() {
-      drawerStore.close();
-  }
+  let {title="", href, children=null} = $props();
 
-  export let title = "";
-  export let href ="";
+  let url = $state(page);
+
+  let classes = $derived.by(() => url.url.pathname == href ? "rounded preset-tonal" : "")
+  
 </script>
 
-<a href="{href}" class:bg-primary-active-token={$page.url.pathname == href} on:click={drawerClose}>
+<a href="{href}"  class="anchor w-full px-2 py-1 rounded {classes} inline-block">
   {title}
-  <slot/>
+  {#if children }
+  {@render children()}
+  {/if}
 </a>

@@ -1,38 +1,36 @@
 <script>
-	import { AppShell, AppBar, Drawer, Toast, Avatar, Modal} from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
+	// import { AppShell, AppBar, Drawer, Toast, Avatar} from '@skeletonlabs/skeleton';
+	import { page } from '$app/state';
 	import Navigation from '$components/nav/Navigation.svelte';
 	import ToastMessage from '$components/message/MessageToast.svelte';
+
+
 	import { browser } from '$app/environment';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
+	// import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+    import LightSwitch from '$components/common/LightSwitch.svelte';
+    import Drawer from '$components/common/Drawer.svelte';
+    import Tooltip from '$components/common/Tooltip.svelte';
+    import { Avatar } from '@skeletonlabs/skeleton-svelte';
+    import { url } from '$utils/url';
 	// import Input from '$components/form/Input.svelte';
 
-	import { getDrawerStore } from "@skeletonlabs/skeleton";
-	import { popup } from '@skeletonlabs/skeleton';
+	// import { getDrawerStore } from "@skeletonlabs/skeleton";
+	// import { popup } from '@skeletonlabs/skeleton';
 	
 	// import type { PopupSettings } from '@skeletonlabs/skeleton';
 	// import Breadcrumb from '$components/utils/Breadcrumb.svelte';
 
-	const drawerStore = getDrawerStore();
 
-	function drawerOpen() {
-		drawerStore.open();
-	}
-
-	$: breadcrumbs = $page.data.breadcrumbs || [];
+	let breadcrumbs = $derived(page.data.breadcrumbs || []);
 </script>
 
 <svelte:head>
 	<title>Calyps.io</title>
 </svelte:head>
 
-<Drawer>
-	<Navigation />
-</Drawer>
-
-<Toast position="tr" />
-<Modal />
+<!-- <Toast position="tr" /> -->
+<!-- <Modal /> -->
 
 {#if browser}
 <ToastMessage />
@@ -46,17 +44,23 @@
 		  <div class="flex gap-4 items-center">
 				<LightSwitch/>
 
-				<a class="cursor-pointer" on:click={drawerOpen}>
-					<i class="text-xl ri-menu-line" ></i>
-				</a>
+				<Drawer >
+					{#snippet _trigger()}
+					<i class="ri-menu-line"></i>
+					{/snippet}
+					{#snippet _content()}
+					<Navigation/>
+					{/snippet}
+				</Drawer>
 
-				{#if $page.data.user}
-				<Avatar
-					initials={$page.data.user.username?.charAt(0)}
-					border="border-4 border-surface-300-600-token hover:!border-primary-500"
-					cursor="cursor-pointer"
-					width="w-12"
-				/>
+				{#if page.data.user}
+				<a href="{url('profile')}" class="cursor-pointer">
+					<Avatar
+						name={page.data.user.username?.charAt(0)}
+						border="border-4 border-surface-300-600-token hover:!border-primary-500"
+						size="size-10"
+					/>
+				</a>
 				{/if}
 				
 			</div>
@@ -78,18 +82,19 @@
           <div></div>
           <div class="text-xl">
 
-						<div class="card text-center p-4 shadow-xl text-sm" data-popup="popupHover">
-							<div><p>View the Legacy <br>Emptytxt.com</p></div>
-							<div class="arrow bg-surface-100-800-token" />
-						</div>
-						
-							<a href="https://emptytxt.com" use:popup={{
-								event: 'hover',
-								target: 'popupHover',
-								placement: 'top'
-							}}>
-								<img src="/favicon.ico" class="inline w-4 pb-1" alt="emptytx logo">
-							</a>
+							<Tooltip>
+								{#snippet _content()}
+								<div class="text-sm">
+									<div><p>View the Legacy <br>Emptytxt.com</p></div>
+									<div class="arrow bg-surface-100-800-token"></div>
+								</div>
+								{/snippet}
+								{#snippet _trigger()}
+								<a href="https://emptytxt.com">
+									<img src="/favicon.ico" class="inline w-4 pb-1" alt="emptytx logo">
+								</a>
+								{/snippet}
+							</Tooltip>
 
 						<a href="https://www.youtube.com/@mpt777">
               <i class="ri-youtube-fill"></i>

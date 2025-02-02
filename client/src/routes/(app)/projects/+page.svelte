@@ -17,8 +17,8 @@
 <div class="w-full text-token grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 	
 	{#each data as d}
-		<a href="{d.url}" class="calyps--card">
-			<header class="card-header p-4 bg-surface-200-700-token">
+		<a href="{d.url}" class="calyps--card border-surface-100-900">
+			<header class="card-header p-4 preset-filled-surface-100-900">
 				<h2 class="h2">{d.title}</h2>
 			</header>
 			<section class="p-4 ">

@@ -1,6 +1,7 @@
 import type { Cookies } from "@sveltejs/kit";
 
 interface IMessage {
+    title?: string,
     message: string,
     background?: string,
     timeout?: number,
@@ -16,8 +17,10 @@ export class Message implements IMessage {
     public hoverable;
     public hideDismiss;
     public classes;
+    public title;
 
     constructor(imessage:IMessage) {
+        this.title = imessage.title || "";
         this.message = imessage.message || "";
         this.background=imessage.background || "variant-filled-secondary";
         this.timeout=imessage.timeout || 5000;

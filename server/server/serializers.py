@@ -6,13 +6,16 @@ from rest_framework import serializers
 
 class RegistrationSerializer(serializers.ModelSerializer):
 
-    password1 = serializers.CharField(label='Password', write_only=True)
-    password2 = serializers.CharField(label='Password confirmation', write_only=True)
+    password = serializers.CharField(label='Password', write_only=True)
+    password1 = serializers.CharField(label='Password confirmation', write_only=True)
 
     def validate(self, data):
-        print(data)
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError("Passwords do not match.")
+        if data['password1'] != data['password']:
+            raise serializers.ValidationError({"password1": "Passwords do not match."})
+        if User.objects.filter(username=data["username"]).exists():
+            raise serializers.ValidationError({"username": "Username is taken"})
+        if User.objects.filter(email=data["email"]).exists():
+            raise serializers.ValidationError({"email": "Email already has an account associated with it"})
         return data
 
     def create(self, validated_data):
@@ -26,7 +29,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ( "id", "username", "email", "password1", "password2")
+        fields = ( "id", "username", "email", "password1", "password")
 
 
 class PasswordChangeSerializer(serializers.Serializer):
