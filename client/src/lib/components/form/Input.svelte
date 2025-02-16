@@ -1,91 +1,87 @@
-<script lang="ts">
-    
-  export let value : any;
-  export let placeholder = "";
-  export let name = "";
-  export let autocomplete = "" || null;
-  export let required = false;
-  export let errors = {};
-  export let type = "text";
-  export let choices = [];
-  export let step = 1 || null;
-  export let css = "";
-  export let style="";
-  export let size= "" || null;
-  const inputProperties = { type };
-  let requiredClass = required ? "required" : ""; 
+<script>
+  import DurationField from "./DurationField.svelte";
 
-  $: hasErrors = errors && errors[name];
-  $: errorClass = hasErrors ? "variant-ringed-error" : "";
+let {errors={}, value=$bindable(), placeholder="", label="", name="", forName="", autocomplete="", required=false, choices=[], _choices="", constraints=[], type="text", css="", form=undefined, step=1} = $props();
+const inputProperties = { type };
 
-  const handleInput = e => {
-      value = e.target.value;
-  };
+let requiredClass = required ? "required" : ""; 
+let hasErrors = errors && errors[name];
+let classes = hasErrors ? "with-error" : "";
+let errorClass = hasErrors ? "variant-ringed-error" : "";
 
-  export let baseClass : string = undefined;
-  let baseClassLookup = {
-      textarea: "textarea",
-      file: "",
-      select: "select",
-      input: "input"
-  }
+// const handleInput = e => {
+//     value = e.target.value;
+// };
 
-  if (baseClass === undefined){
-      baseClass = baseClassLookup[type] || "input"; 
-  }
+let baseClassLookup = {
+    textarea: "textarea",
+    file: "",
+    select: "select",
+    input: "input"
+}
+
+let baseClass = baseClassLookup[type] || "input";
 
 </script>
 {#if type === "textarea"}
-  <!-- <textarea
-  {...inputProperties}
-  placeholder={placeholder}
-  autocomplete={autocomplete}
-  required={required}
-  {name}
-  style="{style}"
-  class="{baseClass} {errorClass} {css}"
-  bind:value
-  on:input={handleInput} /></textarea> -->
+<!-- <textarea
+{...inputProperties}
+placeholder={placeholder}
+autocomplete={autocomplete}
+required={required}
+{name}
+style="{style}"
+class="{baseClass} {errorClass} {css}"
+bind:value
+on:input={handleInput} /></textarea> -->
+{:else if type === "duration"}
+<DurationField bind:value name={name}></DurationField>
+{:else if type === "checkbox"}
+<input
+{name}
+style="{css}"
+class="{baseClass} {errorClass}"
+type="checkbox"
+bind:checked={value}/>
 {:else if type === "file"}
-  <input
-  {...inputProperties}
-  placeholder={placeholder}
-  autocomplete={autocomplete}
-  required={required}
-  {name}
-  style="{style}"
-  class="{baseClass} {errorClass} {css}"
-  bind:value
-  on:input={handleInput} />
+<input
+{...inputProperties}
+placeholder={placeholder}
+autocomplete={autocomplete}
+required={required}
+{name}
+style="{css}"
+class="{baseClass} {errorClass} {css}"
+bind:value={value}/>
 {:else if type === "select"}
-  <select
-  {...inputProperties}
-  placeholder={placeholder}
-  autocomplete={autocomplete}
-  required={required}
-  {name}
-  style="{style}"
-  class="{baseClass} {errorClass} {css}"
-  bind:value
-  on:input={handleInput}>
-      {#each choices as choice}
-      <option value="{choice}">{choice}</option>
-      {/each}
-  </select>
+<select
+{...inputProperties}
+placeholder={placeholder}
+autocomplete={autocomplete}
+required={required}
+{name}
+style="{css}"
+class="{baseClass} {errorClass} {css}"
+bind:value>
+{#if _choices}
+  {@render _choices()}
 {:else}
-  <input
-  {...inputProperties}
-  placeholder={placeholder}
-  autocomplete={autocomplete}
-  required={required}
-  step={step}
-  {name}
-  size={size}
-  style="{style}"
-  class="{baseClass} {errorClass} {css}"
-  bind:value
-  on:input={handleInput} />
+    {#if !required}<option value="">---</option>{/if}
+    {#each choices as choice}
+    <option value="{choice.value}">{choice.name}</option>
+    {/each}
 {/if}
-<slot name="after">
-
-</slot>
+</select>
+{:else}
+<input
+{...inputProperties}
+placeholder={placeholder}
+autocomplete={autocomplete}
+required={required}
+step={step}
+{name}
+style="{css}"
+class="{baseClass} {errorClass} {css}"
+aria-invalid={hasErrors ? 'true' : undefined}
+bind:value />
+{/if}
