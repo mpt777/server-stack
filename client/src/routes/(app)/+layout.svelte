@@ -7,7 +7,7 @@
 
 	import { browser } from '$app/environment';
 	// import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
+	import { onMount, setContext } from 'svelte';
     import LightSwitch from '$components/common/LightSwitch.svelte';
     import Drawer from '$components/common/Drawer.svelte';
     import Tooltip from '$components/common/Tooltip.svelte';
@@ -21,8 +21,12 @@
 	// import type { PopupSettings } from '@skeletonlabs/skeleton';
 	// import Breadcrumb from '$components/utils/Breadcrumb.svelte';
 
+	let { children } = $props();
 
 	let breadcrumbs = $derived(page.data.breadcrumbs || []);
+
+	let drawerState = $state(false);
+	setContext('drawerState', drawerState);
 </script>
 
 <svelte:head>
@@ -36,22 +40,12 @@
 <ToastMessage />
 {/if }
 
-<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+<div class="flex flex-col h-svh overflow-hidden">
 	<!-- Header -->
 	<header class="bg-surface-50-900-token p-4 shadow-md z-10">
 		<div class="flex justify-between">
 		  <div class="h4"><a href="/">Calyps.io</a></div>
 		  <div class="flex gap-4 items-center">
-				<LightSwitch/>
-
-				<Drawer >
-					{#snippet _trigger()}
-					<i class="ri-menu-line"></i>
-					{/snippet}
-					{#snippet _content()}
-					<Navigation/>
-					{/snippet}
-				</Drawer>
 
 				{#if page.data.user}
 				<a href="{url('profile')}" class="cursor-pointer">
@@ -62,47 +56,38 @@
 					/>
 				</a>
 				{/if}
+
+				<LightSwitch/>
+
+				<Drawer >
+					{#snippet _trigger()}
+					<i class="ri-menu-line"></i>
+					{/snippet}
+					{#snippet _content()}
+					<div class="p-0 pb-4 pt-8 h-full"><Navigation/></div>
+					{/snippet}
+				</Drawer>
+
+
 				
 			</div>
 		</div>
 	</header>
 	<!-- Grid Columns -->
-	<div class="grid grid-cols-1 md:grid-cols-[auto_1fr]">
+	<div class="flex h-full overflow-hidden">
 	  <!-- Left Sidebar. -->
-	  <aside class="p-1 bg-surface-50-900-token hidden md:block border-r border-surface-500/30">
+	  <aside class="p-4 bg-surface-50-900-token hidden md:block border-r border-surface-500/30 ">
       <Navigation/>
     </aside>
 	  <!-- Main Content -->
-    <div class="flex justify-between flex-col">
+    <div class="flex justify-between flex-col overflow-y-auto w-full">
       <main class="space-y-4 p-4">
-        <slot></slot>
+        {@render children()}
       </main>
       <footer class="p-4 bg-surface-500/20">
         <div class="flex justify-between">
           <div></div>
           <div class="text-xl">
-
-							<Tooltip>
-								{#snippet _content()}
-								<div class="text-sm">
-									<div><p>View the Legacy <br>Emptytxt.com</p></div>
-									<div class="arrow bg-surface-100-800-token"></div>
-								</div>
-								{/snippet}
-								{#snippet _trigger()}
-								<a href="https://emptytxt.com">
-									<img src="/favicon.ico" class="inline w-4 pb-1" alt="emptytx logo">
-								</a>
-								{/snippet}
-							</Tooltip>
-
-						<a href="https://www.youtube.com/@mpt777">
-              <i class="ri-youtube-fill"></i>
-            </a>
-
-            <a href="https://github.com/mpt777">
-              <i class="ri-github-fill"></i>
-            </a>
           </div>
         </div>
 	    </footer>
